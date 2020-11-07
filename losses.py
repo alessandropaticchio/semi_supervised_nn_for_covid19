@@ -1,30 +1,32 @@
 import torch
-import numpy as np
 from torch.autograd import grad
 from constants import device, dtype
 
-
-def sir_loss(t, s, i, r, beta, gamma, decay=0):
+def sirp_loss(t, s, i, r, p, beta, gamma, decay=0):
     s_prime = dfx(t, s)
     i_prime = dfx(t, i)
     r_prime = dfx(t, r)
+    p_prime = dfx(t, p)
 
-    N = 1
+    N = s + i + r
 
     loss_s = s_prime + (beta * i * s) / N
     loss_i = i_prime - (beta * i * s) / N + gamma * i
     loss_r = r_prime - gamma * i
+    loss_p = p_prime
 
     # Regularize to give more importance to initial points
     loss_s = loss_s * torch.exp(-decay * t)
     loss_i = loss_i * torch.exp(-decay * t)
     loss_r = loss_r * torch.exp(-decay * t)
+    loss_p = loss_p * torch.exp(-decay * t)
 
     loss_s = (loss_s.pow(2)).mean()
     loss_i = (loss_i.pow(2)).mean()
     loss_r = (loss_r.pow(2)).mean()
+    loss_p = (loss_p.pow(2)).mean()
 
-    total_loss = loss_s + loss_i + loss_r
+    total_loss = loss_s + loss_i + loss_r + loss_p
 
     return total_loss
 

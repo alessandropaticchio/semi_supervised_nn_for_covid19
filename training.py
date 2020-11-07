@@ -1,9 +1,7 @@
 import numpy as np
 import time
 import copy
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
-from torch.utils.data import DataLoader
 from losses import *
 from constants import device, ROOT_DIR
 from utils import generate_dataloader, generate_grid
@@ -42,22 +40,24 @@ def train_bundle(model, initial_conditions_set, t_final, epochs, train_size, opt
             # Sample randomly initial conditions, beta and gamma
             i_0 = uniform(initial_conditions_set[0][0], initial_conditions_set[0][1], size=batch_size)
             r_0 = uniform(initial_conditions_set[1][0], initial_conditions_set[1][1], size=batch_size)
+            p_0 = uniform(initial_conditions_set[2][0], initial_conditions_set[2][1], size=batch_size)
             beta = uniform(betas[0], betas[1], size=batch_size)
             gamma = uniform(gammas[0], gammas[1], size=batch_size)
 
             i_0 = torch.Tensor([i_0]).reshape((-1, 1))
             r_0 = torch.Tensor([r_0]).reshape((-1, 1))
+            p_0 = torch.Tensor([p_0]).reshape((-1, 1))
             beta = torch.Tensor([beta]).reshape((-1, 1))
             gamma = torch.Tensor([gamma]).reshape((-1, 1))
 
-            s_0 = 1 - (i_0 + r_0)
-            initial_conditions = [s_0, i_0, r_0]
+            s_0 = 1 - (i_0 + r_0 + p_0)
+            initial_conditions = [s_0, i_0, r_0, p_0]
 
             #  Network solutions
-            s, i, r = model.parametric_solution(t, initial_conditions, beta, gamma, mode='bundle_total')
+            s, i, r, p = model.parametric_solution(t, initial_conditions, beta, gamma)
 
             # Loss computation
-            batch_loss = sir_loss(t, s, i, r, beta=beta, gamma=gamma, decay=decay)
+            batch_loss = sirp_loss(t, s, i, r, p, beta=beta, gamma=gamma, decay=decay)
 
             # Hack to prevent the network from solving the equations trivially
             if hack_trivial:
@@ -88,7 +88,7 @@ def train_bundle(model, initial_conditions_set, t_final, epochs, train_size, opt
         if epoch % 500 == 0 and epoch != 0:
             torch.save({'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict()},
-                       ROOT_DIR + '/models/SIR_bundle_total/{}'.format(model_name))
+                       ROOT_DIR + '/models/SIRP_bundle_total/{}'.format(model_name))
 
     final_time = time.time()
     run_time = final_time - start_time

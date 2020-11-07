@@ -100,7 +100,7 @@ countries_dict_prelock = {}
 countries_dict_postlock = {}
 
 selected_countries = ['Italy', 'Spain', 'Greece', 'France', 'Germany', 'Switzerland', 'United Kingdom', 'Russia', 'US',
-                      'Sweden', 'New Zealand']
+                      'Sweden', 'Belgium']
 
 selected_countries_populations = {'Italy': 60460000,
                                   'Spain': 46940000,
@@ -112,21 +112,21 @@ selected_countries_populations = {'Italy': 60460000,
                                   'Russia': 146793000,
                                   'US': 328200000,
                                   'Sweden': 10230000,
-                                  'New Zealand': 4886000}
+                                  'Belgium': 11460000}
 
-selected_countries_rescaling = {'Italy': 0.003}
+selected_countries_rescaling = {'Italy': 1}
 
 lockdown_ends = {'Italy': datetime.strptime('04/05/2020', '%d/%m/%Y'),
                  'Spain': datetime.strptime('04/05/2020', '%d/%m/%Y'),
                  'Greece': datetime.strptime('04/05/2020', '%d/%m/%Y'),
                  'France': datetime.strptime('11/05/2020', '%d/%m/%Y'),
                  'Germany': datetime.strptime('20/04/2020', '%d/%m/%Y'),
-                 'Switzerland': datetime.strptime('11/05/2020', '%d/%m/%Y'),
+                 'Switzerland': datetime.strptime('27/04/2020', '%d/%m/%Y'),
                  'United Kingdom': datetime.strptime('13/05/2020', '%d/%m/%Y'),
                  'Russia': datetime.strptime('11/05/2020', '%d/%m/%Y'),
                  'US': datetime.strptime('04/05/2020', '%d/%m/%Y'),
                  'Sweden': datetime.strptime('04/05/2021', '%d/%m/%Y'),
-                 'New Zealand': datetime.strptime('27/04/2021', '%d/%m/%Y')}
+                 'Belgium': datetime.strptime('04/05/2020', '%d/%m/%Y')}
 
 for c in selected_countries:
     # Sample data before lockdown
@@ -152,3 +152,4 @@ for c in selected_countries:
     removed = recovered + deaths
 
     countries_dict_postlock[c] = [infected, removed, new_cases]
+
