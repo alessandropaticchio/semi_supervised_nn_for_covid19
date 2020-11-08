@@ -19,10 +19,10 @@ This repository is built on two branches:
 
 Here is a brief overview of the files of both the branches:
 
-`main_bundle`: contains the code to train an unsupervised neural network (NN) to solve a system of differential equation (DE). \
-`main_data_fitting`: contains the code to fit a ground truth, starting from a NN-DE solver. \
-`models`: contains the implementation of the networks. \
-`training`: contains the implementation of the NN-DE solver training. \
-`data_fitting`: contains all the logic to fit a ground truth. \
-`losses`: contains the implementation of the custom losses needed for our task. \
-`real_data_countries`: snippet of code to download the data used for our task. 
+- `main_bundle`: contains the code to train an unsupervised neural network (NN) to solve a system of differential equation (DE). \
+- `main_data_fitting`: contains the code to fit a ground truth, starting from a NN-DE solver. \
+- `models`: contains the implementation of the networks. \
+- `training`: contains the implementation of the NN-DE solver training. \
+- `data_fitting`: contains all the logic to fit a ground truth. \
+- `losses`: contains the implementation of the custom losses needed for our task. \
+- `real_data_countries`: snippet of code to download the data used for our task. 
