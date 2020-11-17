@@ -1,5 +1,12 @@
 # Semi-supervised Neural Networks solve an inverse problem for modeling Covid-19 spread
 
+
+<p align="center">
+<img src="https://i.ibb.co/HnxRsG5/logo-polimi.png" alt="drawing" width="150"/> <img src="https://i.ibb.co/BsgP3pS/logo-harvard.png" alt="drawing" width="150"/>
+</p>
+
+
+
 This repository contains the code for the paper "Semi-supervised Neural Networks solve an inverse problem for modeling Covid-19 spread", 
 published at NeurIPS 2020 Workshop "Machine Learning and the Physical Science", by authors A. Paticchio, T. Scarlatti, M. Brambilla, M. Mattheakis, P. Protopapas.
 
